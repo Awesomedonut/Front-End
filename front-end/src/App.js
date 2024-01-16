@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function App() {
     const [links, setLinks] = useState('');
-    const [file1, setFile1] = useState(null);
+    const [file1, setFiles] = useState(null);
     const [result, setResult] = useState('');
 
     const handleSubmit = async (e) => {
@@ -25,6 +25,10 @@ function App() {
             setResult('Error: ' + error.message);
         }
     };
+
+    const handleFileChange = (e) => {
+      setFiles(e.target.files);
+  };
 
     const formStyle = {
         display: 'flex',
@@ -55,25 +59,27 @@ function App() {
     };
 
     return (
-        <div style={{ textAlign: 'center' }}>
-            <form onSubmit={handleSubmit} style={formStyle}>
-                <textarea
-                    style={textAreaStyle}
-                    value={links}
-                    onChange={(e) => setLinks(e.target.value)}
-                    placeholder="Enter links here..."
-                />
-                <input type="file" onChange={(e) => setFile1(e.target.files[0])} />
-                <button style={buttonStyle} type="submit">Submit</button>
-            </form>
-            {result && (
-                <div style={resultStyle}>
-                    <h3>Result:</h3>
-                    <pre>{result}</pre>
-                </div>
-            )}
-        </div>
-    );
+      <div style={{ textAlign: 'center' }}>
+          <form onSubmit={handleSubmit} style={formStyle}>
+              <textarea
+                  style={textAreaStyle}
+                  value={links}
+                  onChange={(e) => setLinks(e.target.value)}
+                  placeholder="Enter text here..."
+              />
+              <br />
+              <input type="file" multiple onChange={handleFileChange} />
+              <br />
+              <button style={buttonStyle} type="submit">Submit</button>
+          </form>
+          {result && (
+              <div style={resultStyle}>
+                  <h3>Result:</h3>
+                  <pre>{result}</pre>
+              </div>
+          )}
+      </div>
+  );
 }
 
 export default App;
