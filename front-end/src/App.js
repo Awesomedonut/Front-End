@@ -4,7 +4,6 @@ import axios from 'axios';
 function App() {
     const [links, setLinks] = useState('');
     const [file1, setFile1] = useState(null);
-    const [file2, setFile2] = useState(null);
     const [result, setResult] = useState('');
 
     const handleSubmit = async (e) => {
@@ -13,7 +12,6 @@ function App() {
         const formData = new FormData();
         formData.append('links', links);
         if (file1) formData.append('files', file1);
-        if (file2) formData.append('files', file2);
 
         try {
             const response = await axios.post('https://chat-api.cryptoslam.dev/post_content', formData, {
@@ -66,7 +64,6 @@ function App() {
                     placeholder="Enter links here..."
                 />
                 <input type="file" onChange={(e) => setFile1(e.target.files[0])} />
-                <input type="file" onChange={(e) => setFile2(e.target.files[0])} />
                 <button style={buttonStyle} type="submit">Submit</button>
             </form>
             {result && (
